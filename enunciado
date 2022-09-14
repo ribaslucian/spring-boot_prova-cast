@@ -1,0 +1,9 @@
+1. Versione o projeto no github.com e crie a estrutura de desenvolvimento e branches baseadas no gitflow;
+
+2. Crie uma chamada para o serviço http://viacep.com.br/ws/01001000/json/ utilizando Spring Cloud OpenFeign e disponibilize um endpoint para expor o resultado da chamada.
+
+3. Desenvolva um CRUD utilizando REST API para a entidade “Conta”.  A entidade precisa ter apenas os atributos: nome e descrição. Para manter as informações da entidade utilize um banco de dados em memória com o H2 ou similar;
+
+4. Implemente um teste unitário para a consulta do viacep;
+
+5. Justifique cada camada/pacote definido no projeto;

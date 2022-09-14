@@ -1,0 +1,61 @@
+version: '3.1'
+
+services:
+  database_pg:
+    image: postgres
+    container_name: database_pg
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: spring-boot_base-app
+    ports:
+    - 5432:5432
+    volumes:
+    - ./pg-data:/var/lib/postgresql/
+    mem_limit: 512m 
+
+  database_redis:
+    image: redis
+    container_name: database_redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./.myredis/conf:/usr/local/etc/redis
+    command: bash -c "redis-server"
+      # - --requirepass ${redis}
+    mem_limit: 256m 
+
+  server_maven:
+    image: maven
+    container_name: server_maven
+    environment:
+      DB_URL: jdbc:postgresql://database_pg:5432/spring-boot_base-app
+      # DB_URL: jdbc:postgresql://host.docker.internal:5432/spring-boot_base-app
+      # REDIS_HOST: host.docker.internal
+    ports:
+    - 80:80
+    links:
+      - database_pg
+    volumes:
+    - ./:/usr/src/
+    working_dir: /usr/src/
+    command: bash -c "mvn spring-boot:run"
+    # command: bash -c "mvn clean install spring-boot:run"
+    mem_limit: 512m
+
+  metrics_prometeus:
+    image: prom/prometheus:latest
+    container_name: metrics_prometeus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./src/main/resources/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    mem_limit: 128m
+  
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - 3000:3000
+    mem_limit: 128m

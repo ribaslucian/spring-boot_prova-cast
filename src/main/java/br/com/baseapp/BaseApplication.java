@@ -6,16 +6,30 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import br.com.baseapp.domains.ZipCode;
+
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.FeignClient;
 
 import io.micrometer.core.instrument.MeterRegistry;
 
 @SpringBootApplication
 // @RestController
+@EnableFeignClients
 public class BaseApplication {
 
   public static void main(String[] args) {
     SpringApplication.run(BaseApplication.class, args);
   }
+
+  // @FeignClient(name = "ZipCode", url = "http://viacep.com.br/ws/01001000/json/")
+  // static interface ZipCodesImp {
+  //   // @RequestMapping(method = @RequestMethod.GET, value="")
+  //   @RequestMapping(value = "")
+  //   ZipCode getZipCode();
+  // }
 
   @Bean
 	public ModelMapper modelMapper() {

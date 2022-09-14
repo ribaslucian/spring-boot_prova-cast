@@ -1,8 +1,8 @@
 ECHO OFF
 
 :: Elements name.
-set imageName="ribaslucian/java-spring_base-app:1"
-set containerName="java-spring_base-app"
+set imageName="ribaslucian/java-spring_prova-cast-app:1"
+set containerName="java-spring_prova-cast-app"
 
 IF "%~1"=="dockerfile" (
 

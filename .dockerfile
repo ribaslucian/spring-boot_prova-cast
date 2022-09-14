@@ -1,7 +1,7 @@
 FROM maven
 
 # Copy and config application.
-ENV DB_URL "jdbc:postgresql://host.docker.internal:5432/java-spring_base-app"
+ENV DB_URL "jdbc:postgresql://host.docker.internal:5432/java-spring_prova-cast-app"
 COPY . /usr/src/
 WORKDIR /usr/src/
 

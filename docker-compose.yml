@@ -6,7 +6,7 @@ services:
     container_name: database_pg
     environment:
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: spring-boot_base-app
+      POSTGRES_DB: spring-boot_prova-cast-app
     ports:
     - 5432:5432
     volumes:
@@ -21,16 +21,13 @@ services:
     volumes:
       - ./.myredis/conf:/usr/local/etc/redis
     command: bash -c "redis-server"
-      # - --requirepass ${redis}
     mem_limit: 256m 
 
   server_maven:
     image: maven
     container_name: server_maven
     environment:
-      DB_URL: jdbc:postgresql://database_pg:5432/spring-boot_base-app
-      # DB_URL: jdbc:postgresql://host.docker.internal:5432/spring-boot_base-app
-      # REDIS_HOST: host.docker.internal
+      DB_URL: jdbc:postgresql://database_pg:5432/spring-boot_prova-cast-app
     ports:
     - 80:80
     links:
@@ -39,7 +36,6 @@ services:
     - ./:/usr/src/
     working_dir: /usr/src/
     command: bash -c "mvn spring-boot:run"
-    # command: bash -c "mvn clean install spring-boot:run"
     mem_limit: 512m
 
   metrics_prometeus:
@@ -48,7 +44,7 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - ./src/main/resources/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./src/main/resources/prometheus.yaml:/etc/prometheus/prometheus.yml
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     mem_limit: 128m

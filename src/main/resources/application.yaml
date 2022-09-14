@@ -6,7 +6,7 @@ server:
 
 spring:
   application:
-    name: ProvaCast
+    name: prova-cast-by-lucian
 
   jpa:
     properties:

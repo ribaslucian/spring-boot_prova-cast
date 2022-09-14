@@ -52,7 +52,8 @@ public class ContasController {
   }
 
   @GetMapping("/paginate")
-  @Operation(summary = "List all contas paginated", description = "The default size is 5, use the parameter size to change the default value", tags = {"contas"})
+  // @Operation(summary = "List all contas paginated", description = "The default size is 5, use the parameter size to change the default value", tags = {"contas"})
+  @Operation(summary = "List all contas paginated", description = "The default size is 5, use the parameter size to change the default value")
   public ResponseEntity<Page<Conta>> paginate(@Parameter(hidden = true) Pageable pageable) {
     return ResponseEntity.ok(contasService.paginate(pageable));
   }
